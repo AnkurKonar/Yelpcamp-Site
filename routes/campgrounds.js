@@ -41,8 +41,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
         if(err)
         {
             console.log("Error inserting new campground");
+            req.flash("error", "Couldn't create new Campground!");
         }
         else{
+            req.flash("success", "Created new Campground!");
             //redirect back to campgrounds page
             res.redirect("/campgrounds");
         }
@@ -78,9 +80,10 @@ router.get("/:id/edit", middleware.checkCampgroundOwner, function(req, res){
 router.put("/:id", middleware.checkCampgroundOwner, function(req, res){
     Campground.findByIdAndUpdate(req.params.id, req.body.campground ,function(err, updatedCampground){
       if(err){
-          console.log(err);
+          req.flash("error", "Couldn't update Campground!");
           res.redirect("/campgrounds");
       } else {
+          req.flash("success", "Updated Campground!");
           res.redirect("/campgrounds/" + req.params.id);
       }
     });
@@ -91,9 +94,10 @@ router.put("/:id", middleware.checkCampgroundOwner, function(req, res){
 router.delete("/:id", middleware.checkCampgroundOwner, function(req, res){
     Campground.findByIdAndRemove(req.params.id, function(err){
         if(err){
-            console.log(err);
+            req.flash("error", "Couldn't delete Campground!");
             res.redirect("/campgrounds");
         } else{
+            req.flash("error", "Deleted Campground!");
             res.redirect("/campgrounds");
         }
     });

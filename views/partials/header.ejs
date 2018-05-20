@@ -50,6 +50,11 @@
                     <strong><%= success %></strong>
                 </div>
             <% } %>
+            <% if(updated && updated.length > 0){ %>
+                <div class="alert alert-success" role="alert">
+                    <strong><%= updated %></strong>
+                </div>
+            <% } %>
         </div>
         
         <div class="container">

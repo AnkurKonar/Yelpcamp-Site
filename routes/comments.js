@@ -66,6 +66,7 @@ router.put("/:comment_id", middleware.checkCommentOwner, function(req, res){
            console.log(err);
            res.redirect("/campgrounds");
        } else {
+           req.flash("success", "Updated Comment!");
            res.redirect("/campgrounds/" + req.params.id);
        }
     });

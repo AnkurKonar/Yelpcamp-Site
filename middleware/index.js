@@ -21,7 +21,7 @@ middlewareObject.checkCampgroundOwner = function(req, res, next){
                     // If the upper condition is true this will break out of the middleware and prevent the code below to crash our application
  
                     //does the user own the campground?
-                if(foundCampground.author.id.equals(req.user._id))
+                if(foundCampground.author.id.equals(req.user._id)|| req.user.isadmin)
                 {
                     next();   
                 } else {
@@ -53,7 +53,7 @@ middlewareObject.checkCommentOwner = function(req, res, next){
                 // If the upper condition is true this will break out of the middleware and prevent the code below to crash our application
  
                 //does the user own the comment?
-                if(foundComment.author.id.equals(req.user._id))
+                if(foundComment.author.id.equals(req.user._id)|| req.user.isadmin)
                 {
                     next();   
                 } else {
