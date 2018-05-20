@@ -90,7 +90,7 @@
                       <p><%= comment.text %></p>
 
                       <!--If the visitor is logged in and the owner of the comment, show the edit and delete buttons-->
-                      <% if (currentUser && currentUser._id.equals(comment.author.id)) { %>
+                      <% if ((currentUser && currentUser._id.equals(comment.author.id))||(currentUser && currentUser.isadmin)) { %>
                         <a class="btn btn-xs btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit Comment</a>
                         <form class="delete-form" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST"><button class="btn btn-xs btn-danger">Delete comment</button></form>
                         <br>
