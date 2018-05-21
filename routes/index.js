@@ -2,6 +2,9 @@ var express =  require("express");
 var router = express.Router({mergeParams: true});
 var passport = require("passport");
 var request = require("request");
+var async = require("async");
+var nodeMailer = require("nodemailer");
+var crypto = require("crypto");
 var Campground = require("../models/campgrounds");
 var Comment = require("../models/comment");
 var User = require("../models/user");
@@ -45,7 +48,13 @@ router.post("/register", function(req, res){
         req.flash("error", "Captcha Failed");
         return res.redirect("/register");
       }
-        var newUser = new User({username: req.body.username});
+        var newUser = new User({
+             username: req.body.username, 
+             firstname: req.body.firstname, 
+             lastname: req.body.lastname, 
+             email: req.body.email, 
+             avatar: req.body.avatar
+            });
         if(req.body.adminCode == "secretcode123"){
             newUser.isadmin = true;
         }
@@ -81,6 +90,26 @@ router.get("/logout", function(req, res){
     req.logout();
     req.flash("success", "Logged you out!");
     res.redirect("/campgrounds");
+});
+
+// USER PROFILES
+
+router.get("/users/:id", function(req, res){
+    User.findById(req.params.id, function(err, foundUser){
+       if(err){
+           req.flash("error","Something went wrong!");
+           res.redirect("/campgrounds");
+       } else{
+           Campground.find().where("author.id").equals(foundUser._id).exec(function(err, campgrounds){
+               if(err){
+                    req.flash("error","Something went wrong!");
+                    res.redirect("/campgrounds");
+               } else{
+                  res.render("users/show", {user: foundUser, campgrounds: campgrounds}); 
+               }
+           });
+       }
+    });
 });
 
 //Function to check if user logged in - Middleware

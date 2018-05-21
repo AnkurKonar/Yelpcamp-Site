@@ -17,7 +17,7 @@
                     <h4><a href="#"><%= campground.name %></a></h4>
                     <br>
                     <p><%= campground.description %></p>
-                    <p><em>Created by <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em></p>
+                    <p><em>Created by <a href="/users/<%= campground.author.id %>"><%= campground.author.username %></a>, <%= moment(campground.createdAt).fromNow() %></em></p>
                     <% if((currentUser && campground.author.id.equals(currentUser._id))||( currentUser && currentUser.isadmin)){ %>
                             <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-xs btn-warning">EDIT</a>
                             <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST"><button class="btn btn-xs btn-danger">DELETE</button></form>
