@@ -143,7 +143,7 @@ router.put("/:id", middleware.checkCampgroundOwner, upload.single('image'), func
     
     cloudinary.uploader.upload(req.file.path, function(result) {
         // add cloudinary url for the image to the campground object under image property
-        req.body.campground.image = result.secure_url;
+        req.body.campground.images = result.secure_url;
     
         Campground.findByIdAndUpdate(req.params.id, req.body.campground ,function(err, updatedCampground){
             if(err){

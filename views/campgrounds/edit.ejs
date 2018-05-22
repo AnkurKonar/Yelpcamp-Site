@@ -3,7 +3,7 @@
     <div class="row">
         <h1 style="text-align:center;"> Edit the campground: <%= campground.name %></h1>
         <div style="width: 30%; margin: 30px auto;">
-            <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
+            <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <input class="form-control" name="campground[name]" type="text" placeholder="Name" value="<%= campground.name %>">
                 </div>
