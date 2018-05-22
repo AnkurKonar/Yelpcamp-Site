@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express = require("express"),                   //Initializing express
     app = express(),                                //Setting app as express function
     bodyParser = require("body-parser"),            //Including body-parser
